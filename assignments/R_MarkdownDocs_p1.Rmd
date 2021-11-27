@@ -1,0 +1,25 @@
+---
+title: "R Markdown Documents - Part 1"
+author: "Joshua Ward"
+subtitle: Analysis of Environmental Data
+output:
+  html_document:
+    toc: yes
+    toc_float: yes
+---
+
+# Introduction
+
+My names is **Joshua Ward**. I am a masters student at the University of Massachusetts Amherst in the department of *Environmental Conservation*.
+
+# Concepts List
+
+1.  Sampling Methods
+2.  Data Visualization
+3.  R Fundamentals
+
+# Course List
+
+-   Landscape Patterns and Processes
+-   Geologic Field Methods
+-   Intro to GIS

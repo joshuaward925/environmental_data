@@ -1,0 +1,91 @@
+---
+title: "R Markdown Documents - Part 1"
+author: "Joshua Ward"
+subtitle: Analysis of Environmental Data
+output:
+  html_document:
+    toc: yes
+    toc_float: yes
+---
+
+# Section 1 Variables
+
+##### Q1
+
+Characters
+
+##### Q2
+
+Numerics
+
+##### Q3
+
+Characters
+
+##### Q4
+
+Error Message. R cannot add characters and numerics.
+
+##### Q5
+
+Yes, they are both numerics.
+
+##### Q6
+
+0,1,2,and 3 get added to 45.6 so... 45.6 46.6 47.6 48.6
+
+# Section 2 Vectors
+
+##### Q7
+
+v1 = c(-2, -1, 0, 1, 2)
+
+##### Q8
+
+v2 = v1 \* 3
+
+##### Q9
+
+sum(v2)
+
+# Section 3 Matricies
+
+##### Q10
+
+vec4 = 1:12
+
+mat1 = matrix(vec4, byrow = TRUE, nrow = 3)
+
+##### Q11
+
+vec4 = 1:12
+
+mat2 = matrix(vec4, byrow = TRUE, nrow = 4)
+
+# Section 4 Lists
+
+##### Q12
+
+my_list_1= list(5.2,"five point two",0:5)
+
+names(my_list_1)= c("two","one","three")
+
+##### Q13
+
+my_list_1$three
+
+##### Q14
+
+my_list_1["one"]
+
+# Section 5 Logical Tests and Subsetting
+
+##### Q15
+
+my_vec = rep(1:3, 5)
+
+my_bool_vec = my_vec < 3
+
+##### Q16
+
+my_vec[c(my_bool_vec)]
