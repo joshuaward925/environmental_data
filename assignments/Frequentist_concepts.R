@@ -1,7 +1,7 @@
 #BINOMIAL
 #What is the probability of observing a count of exactly 3 
 #successes in a binomial distribution with parameters n = 4 and p = 0.75?
-#dbinom(x, size=n, prob=)
+#dbinom(x, size=n, prob=p)
 dbinom(3, size = 4, prob = 0.75)
 #observing a count of 3 successes or fewer
 pbinom(3,size=4, 0.75)

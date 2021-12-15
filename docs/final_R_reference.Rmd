@@ -1,0 +1,452 @@
+---
+title: "Final Project: R Reference"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# R Reference Guide {.tabset .tabset-pills}
+
+
+## Loading Data and Packages
+
+### library() and require()
+The library() and require() functions are used to load add-on packages or data sets.
+
+* Either function can be used for this, but the library() function will return an error if the requested package does not exist.
+
+Here are examples of the library() and require() function:
+```{r}
+## Load "palmerpenguins" package with library()
+library(palmerpenguins)
+## Load "here" package with library()
+library(here)
+
+## Load "palmerpenguins" package with require()
+require(palmerpenguins)
+## Load "here" package with require()
+require(here)
+```
+
+### here() and read.csv()
+The read.csv() function reads a csv file in table format and creates a data frame from it.
+
+The function here() finds your project's files based on the current working directory when the "here" package was loaded.
+
+Here are examples of read.csv() to create a data frame, and here() to find the data frame's location:
+```{r}
+## Creating a data frame called "ginkgo_data" using read.csv()
+ginkgo_data = read.csv(here("data", "ginkgo_data_2021.csv"))
+## Creating a data frame called "ginkgo" using data.frame()
+ginkgo = data.frame(ginkgo_data)
+
+## Load "here" package with require()
+require(here)
+## Display location of "ginkgo" with here()
+here("ginkgo")
+```
+
+
+## Data Structures
+
+### c()
+The function c() combines or concatenates its arguments into a vector (a 1-dimensional data structure consisting of 1 or more elements).
+
+* All of the elements must be of the same type.
+    * I can’t combine character and numeric types in the same call to c()
+    
+Here’s two examples using numeric and character data types:
+```{r}
+## Create a vector of numbers:
+num_vec  = c(1, 4, 8, 9, 13)
+
+## Create a vector of characters:
+char_vec = c("a", "fish", "data is cool")
+```
+I can show the contents of a vector by typing the name of the vector, or using the print() function.
+```{r}
+## Typing the name of the vector into the console prints the contents
+num_vec
+```
+```{r}
+## The print() function accomplishes the same task:
+print(char_vec)
+```
+
+### length()
+The length() function returns the length of R objects such as vectors, lists, or strings.
+
+Here’s an examples of the length function using a vector:
+```{r}
+## Create a vector of numbers:
+x <- c(42, 18, 24, 54, 63, 15, 10)
+## Returns the number of variables in vector x
+length(x)
+```
+
+### matrix()
+The matrix() function is used to create a matrix; R objects in which the elements are arranged in a two-dimensional rectangular layout with columns and rows.
+
+Here’s an examples of the matrix function:
+```{r}
+## Create a matrix:
+M = matrix(c(2,4,6,8,10,12,14,16,18,20,22,24), #data
+           nrow=3, #number of rows
+           ncol=4, #number of columns
+           byrow=TRUE) #fill matrix by rows
+## Print the matrix:
+print(M)
+```
+
+### data.frame()
+The data.frame() function is used for storing data as a data frame or table. 
+
+* A data frame shares many similarities to matrices and lists.
+
+Here’s an examples of creating a data frame from a csv called "ginkgo_data_2021.csv":
+```{r}
+## Creating a data frame called "ginkgo_data" using read.csv()
+ginkgo_data = read.csv(here("data", "ginkgo_data_2021.csv"))
+## Creating a data frame called "ginkgo" using data.frame()
+ginkgo = data.frame(ginkgo_data)
+```
+
+### nrow()
+The nrow() function returns the number of rows present in a matrix or data frame.
+
+Here’s an examples of the nrow() function with data frame "ginkgo":
+```{r}
+## Return the number of rows in "ginkgo":
+nrow(ginkgo)
+```
+
+### ncol()
+The ncol() function returns the number of columns present in a matrix or data frame.
+
+Here’s an examples of the ncol() function with data frame "ginkgo":
+```{r}
+## Return the number of columns in "ginkgo":
+ncol(ginkgo)
+```
+
+### dim()
+The dim() function returns the dimensions (rows and columns) present in a matrix or data frame.
+
+Here’s an examples of the dim() function with data frame "ginkgo":
+```{r}
+## Return the dimensions of "ginkgo":
+dim(ginkgo)
+```
+
+## Subsetting
+
+### $
+The $ operator is used to extract or subset a specific part of a matrix or data frame.
+
+Here’s an examples of using the $ operator to extract values in a column of data frame "ginkgo":
+```{r}
+## Extract values in column "petiole_length":
+ginkgo$petiole_length
+```
+
+### [ ]
+The [ ] operator is used to extract specific elements from a matrix or data frame.
+
+Here are some examples of using the [ ] operator to extract various elements from data frame "ginkgo":
+```{r}
+## Extract the first row of "ginkgo":
+ginkgo[1, ]
+```
+```{r}
+## Extract the element in row 2, column 3 of "ginkgo":
+ginkgo[2,3]
+```
+```{r}
+## Extract the third column of "ginkgo":
+ginkgo[ ,3]
+```
+
+### subset()
+The subset() function return subsets of vectors, matrices or data frames.
+
+Here’s an examples of using the subset() function to retrieve all the data for Adelie penguins in the species column of the "palmerpenguins" package dataset:
+```{r}
+## Return data for Adelie penguins with subset():
+subset(penguins, species == "Adelie")
+```
+
+
+
+## Numerical Data Exploration
+
+### summary()
+The summary() function computes summary statistics of a data set.
+
+Here’s an examples of the summary() function with data frame "ginkgo":
+```{r}
+## Produce a summary of "ginkgo":
+summary(ginkgo)
+```
+
+### mean()
+The mean() function computes the arithmetic mean from the numerical values in a data set. 
+
+* In a matrix or data frame the column must be specified.
+
+Here’s an examples of the mean() function for the "max_depth" column of data frame "ginkgo":
+```{r}
+##Calculate the mean of "max_depth" from data frame "ginkgo":
+mean(ginkgo$max_depth)
+```
+
+### sd()
+The sd() function computes the standard deviation from the numerical values in a data set. 
+
+* In a matrix or data frame the column must be specified.
+
+Here’s an examples of the sd() function for the "max_depth" column of data frame "ginkgo":
+```{r}
+##Calculate the standard deviation of "max_depth" from data frame "ginkgo":
+sd(ginkgo$max_depth)
+```
+
+
+## Graphical Data Exploration
+
+### plot()
+The plot() function is used to create a scatterplot.
+
+* For a matrix or data frame you must specify the columns you wish to plot.
+
+Creating a scatterplot of max leaf depth (x) and max leaf width (y) with data frame "ginkgo":
+```{r}
+##Create a scatterplot from data frame "ginkgo":
+plot(ginkgo$max_depth, ginkgo$max_width)
+```
+
+#### col=
+Use the col= argument to change the color of the points:
+```{r}
+# Make the points red:
+plot(ginkgo$max_depth, ginkgo$max_width, col="red")
+```
+
+#### pch=
+Use the pch= argument to change the point shapes depending on the "shape number".
+
+Some examples of "shape numbers":
+
+* pch = 2,triangle point up
+
+* pch = 5,diamond
+
+* pch = 10,circle plus
+
+* pch = 18, filled diamond
+
+* pch = 19, solid circle
+
+```{r}
+# Make the points diamonds:
+plot(ginkgo$max_depth, ginkgo$max_width, col="red", pch=5)
+```
+
+#### cex=
+Use the cex= argument to change the size of the plotting text and symbols scaled relative to the default.
+
+1=default, 1.5 is 50% larger, 0.5 is 50% smaller, etc.
+
+* cex.axis = magnification of axis annotation relative to cex
+
+* cex.lab = magnification of x and y labels relative to cex
+
+* cex.main = magnification of titles relative to cex
+
+* cex.sub = magnification of subtitles relative to cex
+
+```{r}
+# Make the x and y labels 50% larger:
+plot(ginkgo$max_depth, ginkgo$max_width, col="red", pch=5, cex.lab=1.5)
+```
+
+#### main=
+Use the main= argument to add text for the main title:
+```{r}
+# Add text for the main title:
+plot(ginkgo$max_depth, ginkgo$max_width, col="red", pch=5, cex.lab=1.5, main= "Ginkgo Leaf Depth vs Width")
+```
+
+#### xlab=
+Use the xlab = argument to label the x-axis:
+```{r}
+#Label the x-axis:
+plot(ginkgo$max_depth, ginkgo$max_width, col="red", pch=5, cex.lab=1.5, main= "Ginkgo Leaf Max Depth vs Max Width", 
+     xlab="Max Leaf Depth (mm)")
+```
+
+#### ylab=
+Use the ylab = argument to label the y-axis:
+```{r}
+#Label the y-axis:
+plot(ginkgo$max_depth, ginkgo$max_width, col="red", pch=5, cex.lab=1.5, main= "Ginkgo Leaf Max Depth vs Max Width", 
+     xlab="Max Leaf Depth (mm)", ylab="Max Leaf Width (mm)")
+```
+
+#### xlim=
+Use the xlim= argument to specify the upper and lower limits of the x-axis:
+```{r}
+# Upper and lower limits of the x-axis:
+plot(ginkgo$max_depth, ginkgo$max_width, col="red", pch=5, cex.lab=1.5, main= "Ginkgo Leaf Max Depth vs Max Width", 
+     xlab="Max Leaf Depth (mm)", ylab="Max Leaf Width (mm)",xlim=c(20,120))
+```
+
+#### ylim=
+Use the ylim= argument to specify the upper and lower limits of the y-axis:
+```{r}
+# Upper and lower limits of the y-axis:
+plot(ginkgo$max_depth, ginkgo$max_width, col="red", pch=5, cex.lab=1.5, main= "Ginkgo Leaf Max Depth vs Max Width", 
+     xlab="Max Leaf Depth (mm)", ylab="Max Leaf Width (mm)",xlim=c(20,120),ylim=c(20,120))
+```
+
+### hist()
+The hist() function is used to create a histogram.
+
+* For a matrix or data frame you must specify the column(s) you wish to plot.
+
+Creating a histogram of penguin flipper length with data frame "palmerpenguins":
+```{r}
+##Create a histogram from data frame "palmerpenguins":
+hist(penguins$flipper_length_mm)
+```
+
+#### breaks=
+Use the breaks= argument to control the number of bars, cells or bins of the histogram:
+```{r}
+## 30 breaks:
+hist(penguins$flipper_length_mm, breaks=30)
+```
+
+### boxplot()
+The boxplot() function is used to create a boxplot.
+
+* For a matrix or data frame you must specify the column(s) you wish to plot.
+
+Creating a boxplot of ginkgo petiole lengths from data frame "ginkgo":
+```{r}
+##Create a boxplot of ginkgo petiole lengths:
+boxplot(ginkgo$petiole_length)
+```
+
+#### conditional boxplot
+Creating a conditional boxplot from one of the continuous variables conditioned on the seeds_present column of data frame "ginkgo":
+```{r}
+##Create a conditional boxplot:
+boxplot(ginkgo$petiole_length, ginkgo$max_width)
+```
+
+### par()
+The par() function combines multiple plots into one overall graph.
+
+Here’s an examples of the par() function with 4 plots arranged in 2 rows and 2 columns:
+```{r}
+# Creates a matrix of nrows x ncols:
+par(mfrow=c(2,2))
+# The 4 plots:
+hist(penguins$flipper_length_mm, main= "Frequency of Flipper Length", 
+     xlab="Flipper Length (mm)", ylab="Frequency")
+
+hist(penguins$body_mass_g, main= "Frequency of Body Mass", 
+     xlab="Body Mass (g)", ylab="Frequency")
+
+hist(penguins$bill_length_mm, main= "Frequency of Bill Length", 
+     xlab="Bill Length (mm)", ylab="Frequency")
+
+hist(penguins$bill_depth_mm, main= "Frequency of Bill Depth", 
+     xlab="Bill Depth (mm)", ylab="Frequency")
+```
+
+
+## Distribution Functions
+
+### Normal Distribution
+Distribution functions for normal distribution
+
+    dnorm(x, mean = 0, sd = 1, log = FALSE)
+
+    pnorm(q, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
+
+    qnorm(p, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)
+
+* x,q = vector of quantiles
+
+* p = vector of probabilities
+
+#### dnorm()
+The dnorm() function gives the density of the normal distribution.
+
+Here’s an examples of the density function:
+```{r}
+#dnorm
+dnorm(4, mean = 2, sd = 1, log = FALSE)
+```
+
+#### pnorm()
+The pnorm() function gives the distribution of the normal distribution.
+
+Here’s an examples of the distribution function:
+```{r}
+#pnorm
+pnorm(7, mean = 2, sd = 3, lower.tail = TRUE, log.p = FALSE)
+```
+
+#### qnorm()
+The qnorm() function gives the quantile of the normal distribution.
+
+Here’s an examples of the quantile function:
+```{r}
+#qnorm
+qnorm(0.85, mean = 70, sd = 3, lower.tail = TRUE, log.p = FALSE)
+```
+
+### Binomial Distribution
+Distribution functions for binomial distribution
+
+    dbinom(x, size, prob, log = FALSE)
+
+    pbinom(q, size, prob, lower.tail = TRUE, log.p = FALSE)
+
+    qbinom(p, size, prob, lower.tail = TRUE, log.p = FALSE)
+
+* x,q = vector of quantiles
+
+* p = vector of probabilities
+
+#### dbinom()
+The dbinom() function gives the density of the binomial distribution.
+
+Here’s an examples of the density function:
+```{r}
+#dbinom
+dbinom(3, size = 4, prob = 0.75, log = FALSE)
+```
+
+#### pbinom()
+The binom() function gives the distribution of the binomial distribution.
+
+Here’s an examples of the distribution function:
+```{r}
+#pbinom
+pbinom(3, size=5, 0.75, lower.tail = TRUE, log.p = FALSE)
+```
+
+#### qbinom()
+The qbinom() function gives the quantile of the binomial distribution.
+
+Here’s an examples of the quantile function:
+```{r}
+#qbinom
+qbinom(p = 0.6, size = 7, prob = 0.8, lower.tail = TRUE, log.p = FALSE)
+```
+
+
